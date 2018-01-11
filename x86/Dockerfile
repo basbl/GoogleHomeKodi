@@ -8,7 +8,7 @@ WORKDIR /home/node/app
 
 COPY package*.json ./
 RUN npm install --production && npm cache clean --force
-COPY . .
+COPY ./ .
 
 EXPOSE 8099
 USER node

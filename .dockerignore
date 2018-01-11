@@ -4,6 +4,6 @@ kodi-hosts.config*.js
 **/launch.json
 .git/
 .gitignore
-example/
+examples/
 .eslintrc.json
 .glitch-assets

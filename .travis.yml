@@ -1,6 +1,33 @@
+sudo: required
+
+services:
+  - docker
+
 language: node_js
 node_js:
-  - "6"
+  - "9"
+
+cache:
+  yarn: true
+  directories:
+    - "node_modules"
+
+before_script:
+  - yarn install
+  - yarn lint
 
 script:
-  - npm run lint
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker build -f ./arm/Dockerfile -t basbloembergen/rpi-kodi-google-home .
+  - docker build -f ./x86/Dockerfile -t basbloembergen/kodi-google-home .
+
+after_success:
+# push image
+- >
+  if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    docker tag basbloembergen/kodi-google-home basbloembergen/kodi-google-home:latest
+    docker push basbloembergen/kodi-google-home
+    docker tag basbloembergen/rpi-kodi-google-home basbloembergen/rpi-kodi-google-home:latest
+    docker push basbloembergen/rpi-kodi-google-home
+  fi
