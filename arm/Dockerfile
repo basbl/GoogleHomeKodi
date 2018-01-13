@@ -13,7 +13,7 @@ RUN apk -U update && \
         nodejs-npm \
     && \
     rm -rf /var/cache/apk/* && \
-    useradd node
+    adduser -S node
 
 
 VOLUME /config
