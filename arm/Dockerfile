@@ -1,4 +1,4 @@
-FROM hypriot/rpi-alpine:3.6
+FROM hypriot/rpi-alpine:3.7
 
 ENV GOOGLE_HOME_KODI_CONFIG="/config/kodi-hosts.config.js"
 ENV NODE_ENV=production
