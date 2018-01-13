@@ -1,10 +1,10 @@
 FROM arm32v6/alpine:3.7
 
-COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
-
 ENV GOOGLE_HOME_KODI_CONFIG="/config/kodi-hosts.config.js"
 ENV NODE_ENV=production
 ENV PORT=8099
+
+COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
 
 RUN apk -U update && \
     apk -U upgrade && \
@@ -12,7 +12,9 @@ RUN apk -U update && \
         nodejs \
         nodejs-npm \
     && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* && \
+    useradd node
+
 
 VOLUME /config
 RUN mkdir -p /home/node/app
