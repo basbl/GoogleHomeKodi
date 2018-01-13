@@ -1,4 +1,6 @@
-FROM hypriot/rpi-alpine:3.7
+FROM arm32v6/alpine:3.7
+
+COPY tmp/qemu-arm-static /usr/bin/qemu-arm-static
 
 ENV GOOGLE_HOME_KODI_CONFIG="/config/kodi-hosts.config.js"
 ENV NODE_ENV=production
